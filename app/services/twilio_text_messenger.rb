@@ -1,18 +1,17 @@
 class TwilioTextMessenger
-  attr_reader :message
+  attr_reader :body, :to
 
-  def initialize(message)
-    @message = message
-    @to ="+16789367721"
+  def initialize(body, to)
+    @body = body
+    @to = to
   end
 
-
-  def call
+  def send
     client = Twilio::REST::Client.new
     client.messages.create({
       from: ENV["TWILIO_PHONE_NUMBER"],
-      to: "+16789367721",
-      body: message,
+      to: to,
+      body: body,
     })
   end
 end

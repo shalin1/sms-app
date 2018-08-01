@@ -1,27 +1,20 @@
 class TrainStatusesController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
-  # GET /train_statuses
-  # GET /train_statuses.json
   def index
     @train_statuses = TrainStatus.all
   end
 
-  # GET /train_statuses/1
-  # GET /train_statuses/1.json
   def show
     @train_status = TrainStatus.find(params[:id])
   end
 
-  # GET /train_statuses/new
   def new
     @train_status = TrainStatus.new
   end
 
-  # POST /train_statuses
-  # POST /train_statuses.json
   def create
-    @status = MtaInfo.new.l_status
-    @train_status = TrainStatus.new(message:@status)
+    create_train_status
 
     respond_to do |format|
       if @train_status.save
@@ -35,9 +28,24 @@ class TrainStatusesController < ApplicationController
     end
   end
 
-  private
+  def reply
+    create_train_status
+    if @train_status.save
+        @from_number = (params['From'])
+        TwilioTextMessenger.new(@train_status.message, @from_number).send
+        render @train_status, notice: @train_status.message
+        return
+    else
+        format.html { render :new }
+        format.json { render json: @train_status.errors, status: :unprocessable_entity }
+     end
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  def create_train_status
+    @status = MtaInfo.new.l_status
+    @train_status = TrainStatus.new(message:@status)
+  end
+
   def train_status_params
     params.require(:train_status).permit(:message)
   end

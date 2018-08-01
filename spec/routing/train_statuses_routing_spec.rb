@@ -15,9 +15,6 @@ RSpec.describe TrainStatusesController, type: :routing do
       expect(:get => "/train_statuses/1").to route_to("train_statuses#show", :id => "1")
     end
 
-    it "routes to #edit" do
-      expect(:get => "/train_statuses/1/edit").to route_to("train_statuses#edit", :id => "1")
-    end
 
     it "routes to #create" do
       expect(:post => "/train_statuses").to route_to("train_statuses#create")
@@ -27,13 +24,6 @@ RSpec.describe TrainStatusesController, type: :routing do
       expect(:put => "/train_statuses/1").to route_to("train_statuses#update", :id => "1")
     end
 
-    it "routes to #update via PATCH" do
-      expect(:patch => "/train_statuses/1").to route_to("train_statuses#update", :id => "1")
-    end
-
-    it "routes to #destroy" do
-      expect(:delete => "/train_statuses/1").to route_to("train_statuses#destroy", :id => "1")
-    end
 
   end
 end
