@@ -1,8 +1,10 @@
-<h1>Is the L working?</h1>
+<h2>Is the L working?</h2>
 <p id="notice"><%= notice %></p>
-<p> <%= @train_status.message %>
-</p>
-<h3>Send status in an SMS!</h3>
+<h1> <%= @train_status.message %>
+</h1>
+<h3>You can get the L status at any time by texting 706.701.2709!</h3>
+<br>
+<h4>Send status in an SMS!</h4>
 <%= form_with(model: TextMessage.new, local: true) do |form| %>
 
   <div class="field">
