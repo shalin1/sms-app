@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @train_status.message %>
+</p>
+
+<%= link_to 'Edit', edit_train_status_path(@train_status) %> |
+<%= link_to 'Back', train_statuses_path %>
