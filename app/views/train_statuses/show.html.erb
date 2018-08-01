@@ -16,4 +16,7 @@
   </div>
 <% end %>
 
-<%= link_to 'Back', train_statuses_path %>
+<%= button_to "Refresh L train status!", action: 'create'%>
+<br>
+<br>
+<%= link_to 'See L-train status history', train_statuses_path %>

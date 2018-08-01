@@ -18,10 +18,5 @@ RSpec.describe TextMessagesController, type: :routing do
     it "routes to #create" do
       expect(:post => "/text_messages").to route_to("text_messages#create")
     end
-
-    it "routes to #update via PUT" do
-      expect(:put => "/text_messages/1").to route_to("text_messages#update", :id => "1")
-    end
-
   end
 end

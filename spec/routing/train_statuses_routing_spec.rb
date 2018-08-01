@@ -19,11 +19,5 @@ RSpec.describe TrainStatusesController, type: :routing do
     it "routes to #create" do
       expect(:post => "/train_statuses").to route_to("train_statuses#create")
     end
-
-    it "routes to #update via PUT" do
-      expect(:put => "/train_statuses/1").to route_to("train_statuses#update", :id => "1")
-    end
-
-
   end
 end
