@@ -16,9 +16,9 @@ class MtaInfo
       @service = 404
     end
     if @service != 404
-      @l_status = @service.xpath("//status")[7].text.include?("GOOD SERVICE") ? "THE L IS GOOD" : "The L is running properly!"
+      @l_status = @service.xpath("//status")[7].text.include?("GOOD SERVICE") ? "The L is running well!" : "The L is all messed up!"
     else
-      @l_status = 'The L is having issues!'
+      @l_status = 'There is something up with the MTA API!'
     end
   end
 end

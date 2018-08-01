@@ -18,8 +18,8 @@ class TrainStatusesController < ApplicationController
 
     respond_to do |format|
       if @train_status.save
-        message = "How is the L doing? #{@train_status.message}!"
-        format.html { redirect_to @train_status, notice: "How is the L doing? #{@train_status.message}!" }
+        # message = "How is the L doing? #{@train_status.message}!"
+        format.html { redirect_to @train_status }
         format.json { render :show, status: :created, location: @train_status }
       else
         format.html { render :new }
@@ -39,7 +39,7 @@ class TrainStatusesController < ApplicationController
         format.html { render :new }
         format.json { render json: @train_status.errors, status: :unprocessable_entity }
      end
-    end
+end
 
   def create_train_status
     @status = MtaInfo.new.l_status

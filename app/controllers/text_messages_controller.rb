@@ -1,5 +1,4 @@
 class TextMessagesController < ApplicationController
-  before_action :set_text_message, only: [:show, :edit, :update, :destroy]
 
   def index
     @text_messages = TextMessage.all

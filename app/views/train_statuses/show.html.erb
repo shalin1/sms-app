@@ -1,8 +1,6 @@
+<h1>Is the L working?</h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Message:</strong>
-  <%= @train_status.message %>
+<p> <%= @train_status.message %>
 </p>
 <h3>Send status in an SMS!</h3>
 <%= form_with(model: TextMessage.new, local: true) do |form| %>

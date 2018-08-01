@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Train Statuses</h1>
+<h1>L Train Statuses</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Message</th>
+      <th>Status</th>
+      <th>Time</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,12 +15,11 @@
     <% @train_statuses.each do |train_status| %>
       <tr>
         <td><%= train_status.message %></td>
-        <td><%= link_to 'Show', train_status %></td>
+        <td><%= train_status.created_at %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Train Status', new_train_status_path %>
+<%= button_to "Get the latest status!", action: 'create'%>
