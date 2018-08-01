@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'open-uri'
+
 class MtaInfo
   attr_reader :l_status
 
@@ -13,7 +16,7 @@ class MtaInfo
       @service = 404
     end
     if @service != 404
-      @l_status = @service.xpath("//status")[7].text.include?("GOOD SERVICE") ? "THE L IS OKAY" : "THE L IS NOT SO GOOD"
+      @l_status = @service.xpath("//status")[7].text.include?("GOOD SERVICE") ? "THE L IS GOOD" : "THE L IS NOT SO GOOD"
     else
       @l_status = "SOMETHING IS UP WITH THE STATUS SERVICE"
     end

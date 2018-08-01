@@ -1,5 +1,4 @@
 class TrainStatusesController < ApplicationController
-  before_action :set_train_status, only: [:show, :edit, :update, :destroy]
 
   # GET /train_statuses
   # GET /train_statuses.json
@@ -21,13 +20,13 @@ class TrainStatusesController < ApplicationController
   # POST /train_statuses
   # POST /train_statuses.json
   def create
-    @train_status = TrainStatus.new(train_status_params)
+    @status = MtaInfo.new.l_status
+    @train_status = TrainStatus.new(message:@status)
 
     respond_to do |format|
       if @train_status.save
         message = "How is the L doing? #{@train_status.message}!"
-        TwilioTextMessenger.new(message).call
-        format.html { redirect_to @train_status, notice: 'How is the L doing? #{@train_status.message}!'}
+        format.html { redirect_to @train_status, notice: "How is the L doing? #{@train_status.message}!" }
         format.json { render :show, status: :created, location: @train_status }
       else
         format.html { render :new }
@@ -38,9 +37,8 @@ class TrainStatusesController < ApplicationController
 
   private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def train_status_params
-      params.require(:train_status).permit(:message)
-    end
-
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def train_status_params
+    params.require(:train_status).permit(:message)
+  end
 end
