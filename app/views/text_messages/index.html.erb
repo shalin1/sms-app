@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Text Messages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>To</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @text_messages.each do |text_message| %>
+      <tr>
+        <td><%= text_message.to %></td>
+        <td><%= text_message.body %></td>
+        <td><%= link_to 'Show', text_message %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Text Message', new_text_message_path %>

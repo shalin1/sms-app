@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>To:</strong>
+  <%= @text_message.to %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @text_message.body %>
+</p>
+
+<%= link_to 'Back', text_messages_path %>
