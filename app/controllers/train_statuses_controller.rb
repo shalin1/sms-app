@@ -1,5 +1,4 @@
 class TrainStatusesController < ApplicationController
-    skip_before_action :verify_authenticity_token
 
   def index
     @train_statuses = TrainStatus.all
@@ -24,12 +23,6 @@ class TrainStatusesController < ApplicationController
     end
   end
 
-  def reply
-        @from_number = (params['From'])
-        TwilioTextMessenger.new(TrainStatus.last.message, @from_number).send
-        format.html {redirect_to @train_status}
-        format.json {render :show, status: :created, location: @train_status}
-  end
 
   def create_train_status
   end

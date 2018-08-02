@@ -1,4 +1,5 @@
 class TextMessagesController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
   def index
     @text_messages = TextMessage.all
@@ -18,17 +19,33 @@ class TextMessagesController < ApplicationController
     respond_to do |format|
       if @text_message.save
         TwilioTextMessenger.new(@text_message.body,@text_message.to).send
-        format.html { redirect_to @text_message, notice: 'Text message was successfully created.' }
-        format.json { render :show, status: :created, location: @text_message }
+        redirect_to @text_message, notice: 'Text message was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @text_message.errors, status: :unprocessable_entity }
+        respond_to do |format|
+            format.html { render :new }
+            format.json { render json: @text_message.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def reply
-    @from_number = params['From']
+    @from = (params['From'])
+    @status_message = "L train status: #{TrainStatus.last.message}"
+    @text_message = TextMessage.new({to:@from,body:@status_message})
+
+    if @text_message.save
+        response = Twilio::TwiML::MessagingResponse.new do |r|
+            r.message body: @status_message
+        end
+        render xml: response.to_s
+    #   TwilioTextMessenger.new(@text_message.body,@text_message.to).send
+      else
+        respond_to do |format|
+            format.html { render :new }
+            format.json { render json: @text_message.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   private
