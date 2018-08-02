@@ -16,7 +16,6 @@ class TextMessagesController < ApplicationController
   def create
     @text_message = TextMessage.new(text_message_params)
 
-    respond_to do |format|
       if @text_message.save
         TwilioTextMessenger.new(@text_message.body,@text_message.to).send
         redirect_to @text_message, notice: 'Text message was successfully created.'
@@ -26,7 +25,6 @@ class TextMessagesController < ApplicationController
             format.json { render json: @text_message.errors, status: :unprocessable_entity }
         end
       end
-    end
   end
 
   def reply
