@@ -27,9 +27,13 @@ class TextMessagesController < ApplicationController
     end
   end
 
+  def reply
+    @from_number = params['From']
+  end
+
   private
 
-    def text_message_params
-      params.require(:text_message).permit(:to, :body)
-    end
+  def text_message_params
+    params.require(:text_message).permit(:to, :body)
+  end
 end
