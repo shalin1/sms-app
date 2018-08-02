@@ -31,7 +31,7 @@ class TextMessagesController < ApplicationController
 
   def reply
     @from = (params['From'])
-    @status_message = "L train status: #{TrainStatus.last.message}"
+    @status_message = helpers.parse_sms(params)
     @text_message = TextMessage.new({to:@from,body:@status_message})
 
     if @text_message.save
@@ -39,7 +39,6 @@ class TextMessagesController < ApplicationController
             r.message body: @status_message
         end
         render xml: response.to_s
-    #   TwilioTextMessenger.new(@text_message.body,@text_message.to).send
       else
         respond_to do |format|
             format.html { render :new }

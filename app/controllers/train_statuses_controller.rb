@@ -1,4 +1,5 @@
 class TrainStatusesController < ApplicationController
+    after_create :notify_subscribers
 
   def index
     @train_statuses = TrainStatus.all
@@ -23,9 +24,14 @@ class TrainStatusesController < ApplicationController
     end
   end
 
+  def notify_subscribers
+    if TrainStatus.second_to_last.message == 'GOOD SERVICE' && TrainStatus.last.message != 'GOOD SERVICE'
+        Subscriber.find_each do |subscriber|
+            TwilioTextMessenger.new(TrainStatus.last,subscriber.phone_number).send
+        end
+    end
+end
 
-  def create_train_status
-  end
 
   def train_status_params
     params.require(:train_status).permit(:message)
