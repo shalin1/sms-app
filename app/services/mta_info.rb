@@ -10,17 +10,18 @@ class MtaInfo
 
   def self.get_current_l_train_status
     begin
-      puts "fetching..."
-      @service = Nokogiri::XML.parse(open("http://web.mta.info/status/serviceStatus.txt/"))
+      puts "fetching L train status at #{Time.now.getlocal('-04:00')}"
+      @service = Nokogiri::XML.parse(open("http://web.mta.info/status/serviceStatus.txt"))
 
     rescue OpenURI::HTTPError
       @service = 404
     end
     if @service != 404
-      @l_status = @service.xpath("//status")[7].text.include?("GOOD SERVICE") ? "The L is running well!" : "The L is all messed up!"
+        @l_status = @service.xpath("//status")[7].text
+        p @l_status
     else
+      p @service
       @l_status = 'There is something up with the MTA API!'
-      puts @service
     end
   end
 end

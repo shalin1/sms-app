@@ -9,16 +9,11 @@ class TrainStatusesController < ApplicationController
     @train_status = TrainStatus.find(params[:id])
   end
 
-  def new
-    @train_status = TrainStatus.new
-  end
-
   def create
     create_train_status
 
     respond_to do |format|
       if @train_status.save
-        # message = "How is the L doing? #{@train_status.message}!"
         format.html { redirect_to @train_status }
         format.json { render :show, status: :created, location: @train_status }
       else
